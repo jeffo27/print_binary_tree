@@ -305,7 +305,7 @@ int InfoQEmpty(infoQ Q)
 // blank block, otherwise we print the key in the Node.
 
 
-void PrintDepth_2(SearchTree T)
+void PrintDepth(SearchTree T)
 {
     Position currNode;
     Queue Q = CreateQ();
