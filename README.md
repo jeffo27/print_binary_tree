@@ -3,7 +3,7 @@ print_binary_tree
 
 print binary tree in C
 
- This project is intended for the printing of a binary search tree.
+ This program is intended for the printing of a binary search tree.
 
  It uses the typical Queue solution.
  Because I have no idea how to implement Polymorphism in C,
