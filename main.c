@@ -18,7 +18,7 @@ int main(void)
         T = Insert(T, key);     // remember assign the returned Tree to T.
     }
 
-    PrintDepth_2(T);
+    PrintDepth(T);
 
 	return 0;
 }

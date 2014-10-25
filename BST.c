@@ -285,111 +285,8 @@ int InfoQEmpty(infoQ Q)
     return Q->front == NULL;
 }
 
-
-// Finally, the function to Print.
-// the key idea is the computation of the offset.
-// the whole length of the tree is 2^(height + 1)
-// the offset of the first level ,the root is length/2.
-// the offset of the second level is length/4.
-// assume the current node is at position (level, pos).
-// then the left child is (level+1, pos - offset).
-// the right child is (level+1, pos + offset).
-//
-//              b
-//          7       e
-//        2   9   c   f
-//       1 3 8 a b d _ _
-//
-// the tree is like this.
-
-void PrintDepth(SearchTree T)
-{
-    Position currNode;
-    int height, screenWidth;
-    int dataWidth;
-    int pos, space, level, newline;
-    int i;
-    Queue Q = CreateQ();
-    infoQ IQ = CreateInfoQ();
-    infoItem currInfo, preInfo, newInfo;
-
-    height = GetHeight(T);
-    dataWidth = 3;
-    screenWidth = Power(2, height+1);
-
-    InQ(Q, T);
-    level = 1;
-    space = screenWidth >> level;
-    pos = space;
-    newline = 1;
-
-
-    newInfo = MakeItem(pos, space, level, newline);
-    Pushback(IQ, newInfo);
-
-    preInfo = newInfo;
-
-    while(!IsEmpty(Q))
-    {
-        currNode = OutQ(Q);
-        currInfo = PopFront(IQ);
-
-        if(currInfo->newline)
-            printf("\n");
-
-        for(i=0; i<currInfo->space; i++)
-            printf(" ");
-        printf("%3d",currNode->key);
-
-        if(currNode->LeftChild)
-        {
-            InQ(Q, currNode->LeftChild);
-            level = currInfo->level + 1;
-            pos = currInfo->pos - (screenWidth >> level); // compute the pos of left child.
-            if(level > preInfo->level)
-            {
-                newline = TRUE;
-                space = pos;
-            }
-            else
-            {
-                newline = FALSE;
-                space = pos - preInfo->pos;               // if it's not the start of newline
-            }
-
-            space -= dataWidth;
-            newInfo = MakeItem(pos, space, level, newline);
-            Pushback(IQ, newInfo);
-            preInfo = newInfo;
-        }
-        if(currNode->RightChild)
-        {
-            InQ(Q, currNode->RightChild);
-            level = currInfo->level + 1;
-            pos = currInfo->pos + (screenWidth >> level);
-            if(level > preInfo->level)
-            {
-                newline = TRUE;
-                space = pos;
-            }
-            else
-            {
-                newline = FALSE;
-                space = pos - preInfo->pos;
-            }
-
-            space -= dataWidth;
-            newInfo = MakeItem(pos, space, level, newline);
-            Pushback(IQ, newInfo);
-            preInfo = newInfo;
-        }
-    }
-
-    printf("\n");
-}
-
-// the second version, also print the NULL node,
-// so the tree will look better and prettier,
+// the tree will look better and prettier,
+// because the NULL nodes will also be printed.
 // but also acquire a larger screen because
 // this function divides the screen into
 // many blocks, so the space here is consuming.
@@ -506,12 +403,4 @@ void PrintDepth_2(SearchTree T)
 
     printf("\n\n");
 }
-
-
-
-
-
-
-
-
 

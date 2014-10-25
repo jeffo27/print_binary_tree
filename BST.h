@@ -71,17 +71,3 @@ int InfoQEmpty(infoQ Q);
 // the final function is here
 
 void PrintDepth(SearchTree T);
-void PrintDepth_2(SearchTree T);
-
-
-
-
-
-
-
-
-
-
-
-
-
